@@ -1,9 +1,11 @@
 from db import DB
 from enum import Enum
 
+
 class Classification(Enum):
-    sexual = 'sexual'
-    non_sexual = 'non-sexual'
+    sexual = "sexual"
+    non_sexual = "non-sexual"
+
 
 class SubmissionModel:
     def __init__(self, classification: Classification, selftext, title, id):
@@ -12,13 +14,19 @@ class SubmissionModel:
         self.title = title
         self.id = id
 
-    def save(self):
+
+class SubmissionService:
+    def save(self, submission: SubmissionModel):
         with DB() as cursor:
             cursor.execute(
                 """
                 INSERT INTO submissions (class, selftext, title, id)
                 VALUES (?, ?, ?, ?)
                 """,
-                (self.classification.value, self.selftext, self.title, self.id)
+                (
+                    submission.classification.value,
+                    submission.selftext,
+                    submission.title,
+                    submission.id,
+                ),
             )
-            

@@ -1,6 +1,5 @@
 import configparser
 import praw
-import pprint
 from submissions import SubmissionModel, Classification
 
 if __name__ == "__main__":
